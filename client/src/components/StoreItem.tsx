@@ -2,18 +2,18 @@ import { Button, Card } from "react-bootstrap"
 
 type StoreItemProps = {
     name : string
+    id: number
 }
 
-function StoreItem({name}: StoreItemProps) {
+function StoreItem({name, id}: StoreItemProps) {
 
   const handleCheckout = () => {
-    console.log("clicked")
     fetch('http://localhost:3000/create-checkout-session', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ items: [{id: 1, quantity: 1}]})
+      body: JSON.stringify({ items: [{id: id, quantity: 1}]})
     }).then(res => {
       if (res.ok) return res.json()
       return res.json().then(json => Promise.reject(json))
@@ -27,7 +27,7 @@ function StoreItem({name}: StoreItemProps) {
   return (
     <Card style={{width: "300px", height: "300px"}}>
         <Card.Title>{name}</Card.Title>
-        <Button value={name} onClick={handleCheckout}> Checkout </Button>
+        <Button value={id} onClick={handleCheckout}> Checkout </Button>
     </Card>
   )
 }
