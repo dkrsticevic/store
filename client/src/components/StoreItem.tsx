@@ -18,8 +18,7 @@ function StoreItem({name}: StoreItemProps) {
       if (res.ok) return res.json()
       return res.json().then(json => Promise.reject(json))
     }).then(({ url }) => {
-      console.log(url)
-      //window.location = url
+      window.location = url
     }).catch(e => {
       console.error(e.error)
     })
@@ -28,7 +27,7 @@ function StoreItem({name}: StoreItemProps) {
   return (
     <Card style={{width: "300px", height: "300px"}}>
         <Card.Title>{name}</Card.Title>
-        <Button value={name} onClick={handleCheckout}></Button>
+        <Button value={name} onClick={handleCheckout}> Checkout </Button>
     </Card>
   )
 }
