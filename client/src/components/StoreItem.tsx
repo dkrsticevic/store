@@ -1,4 +1,5 @@
 import { Button, Card } from "react-bootstrap"
+import { useCart } from "../context/CartContext"
 
 type StoreItemProps = {
     name : string
@@ -6,28 +7,12 @@ type StoreItemProps = {
 }
 
 function StoreItem({name, id}: StoreItemProps) {
-
-  const handleCheckout = () => {
-    fetch('http://localhost:3000/create-checkout-session', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ items: [{id: id, quantity: 1}]})
-    }).then(res => {
-      if (res.ok) return res.json()
-      return res.json().then(json => Promise.reject(json))
-    }).then(({ url }) => {
-      window.location = url
-    }).catch(e => {
-      console.error(e.error)
-    })
-  }
+  const { addToCart } = useCart()
 
   return (
     <Card style={{width: "300px", height: "300px"}}>
         <Card.Title>{name}</Card.Title>
-        <Button value={id} onClick={handleCheckout}> Checkout </Button>
+        <Button value={id} onClick={() => addToCart(id)}> Add To Cart </Button>
     </Card>
   )
 }
