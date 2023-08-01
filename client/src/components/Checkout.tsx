@@ -1,4 +1,4 @@
-import { Offcanvas } from "react-bootstrap"
+import { Button, Offcanvas } from "react-bootstrap"
 import { useCart } from "../context/CartContext"
 
 type CheckoutProps = {
@@ -9,7 +9,6 @@ type CheckoutProps = {
 function Checkout({open, setOpen}: CheckoutProps) {
     const {getCart} = useCart()
     const items = getCart();
-    console.log(items)
 
     const handleCheckout = () => {
         fetch('http://localhost:3000/create-checkout-session', {
@@ -17,7 +16,7 @@ function Checkout({open, setOpen}: CheckoutProps) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ items: [{id: 1, quantity: 1}]})
+        body: JSON.stringify({ items })
         }).then(res => {
         if (res.ok) return res.json()
         return res.json().then(json => Promise.reject(json))
@@ -34,7 +33,15 @@ function Checkout({open, setOpen}: CheckoutProps) {
                 <Offcanvas.Title>Checkout</Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
-
+                {items.map(item => <div>
+                    <span>Item {item.id} </span>
+                    <span>x {item.quantity}</span>
+                </div>)}
+                { items.length > 0 &&
+                <Button onClick={handleCheckout} style={{marginTop: "20px"}}> 
+                    Proceed to Checkout
+                </Button> 
+                }
             </Offcanvas.Body>
         </Offcanvas>
     )
