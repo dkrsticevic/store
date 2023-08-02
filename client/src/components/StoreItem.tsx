@@ -7,12 +7,18 @@ type StoreItemProps = {
 }
 
 function StoreItem({name, id}: StoreItemProps) {
-  const { addToCart } = useCart()
+  const { addToCart, getQuantity } = useCart()
+  const count = getQuantity(id)
+
 
   return (
     <Card style={{width: "300px", height: "300px"}}>
+        <Card.Body>
         <Card.Title>{name}</Card.Title>
-        <Button value={id} onClick={() => addToCart(id)}> Add To Cart </Button>
+        {count !== 0 &&
+        <div>{count} in Cart</div>}
+        <Button value={id} onClick={() => addToCart(id)}>Add To Cart</Button>
+        </Card.Body>
     </Card>
   )
 }

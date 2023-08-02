@@ -12,6 +12,7 @@ type Item = {
 type CartContext = {
     getCart: () => Item[]
     addToCart: (id: number) => void
+    getQuantity: (id: number) => number
     getTotalItems: () => number
 }
 
@@ -50,9 +51,22 @@ export function CartProvider( {children} : CartProviderProps){
         return total
     }
 
+    function getQuantity(id : number){
+        if (items.find(i => i.id == id) == null){
+            return 0;
+        }
+        else{
+            return items.map(i => {
+                if (i.id === id){
+                    return i.quantity
+                }
+            })
+        }
+    }
+
 
     return (
-        <CartContext.Provider value={{ getCart, addToCart, getTotalItems}}>
+        <CartContext.Provider value={{ getCart, addToCart, getTotalItems, getQuantity}}>
             {children}
         </CartContext.Provider>
     )
