@@ -12,6 +12,7 @@ type Item = {
 type CartContext = {
     getCart: () => Item[]
     addToCart: (id: number) => void
+    getTotalItems: () => number
 }
 
 const CartContext = createContext({} as CartContext)
@@ -43,9 +44,15 @@ export function CartProvider( {children} : CartProviderProps){
         })
     }
 
+    function getTotalItems(){
+        let total = 0; 
+        items.map(e => total += e.quantity)
+        return total
+    }
+
 
     return (
-        <CartContext.Provider value={{ getCart, addToCart}}>
+        <CartContext.Provider value={{ getCart, addToCart, getTotalItems}}>
             {children}
         </CartContext.Provider>
     )
