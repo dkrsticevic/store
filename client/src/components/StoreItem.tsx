@@ -4,6 +4,7 @@ import { useCart } from "../context/CartContext"
 type StoreItemProps = {
     name : string
     id: number
+    price: number
 }
 
 function StoreItem({name, id}: StoreItemProps) {

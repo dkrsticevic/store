@@ -52,16 +52,7 @@ export function CartProvider( {children} : CartProviderProps){
     }
 
     function getQuantity(id : number){
-        if (items.find(i => i.id == id) == null){
-            return 0;
-        }
-        else{
-            return items.map(i => {
-                if (i.id === id){
-                    return i.quantity
-                }
-            })
-        }
+        return items.find(item => item.id === id)?.quantity || 0
     }
 
 
