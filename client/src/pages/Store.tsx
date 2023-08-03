@@ -8,7 +8,7 @@ function Store() {
     <Container style={{display: "flex", justifyContent: "center"}}>
         <Row md={2} s={1} lg={3} style={{display: "flex", justifyContent: "left", marginTop: "30px", width: "100%", maxWidth: "900px"}}>
         {items.map(item => 
-        <Col style={{display: "flex", justifyContent: "center", marginBottom: "30px"}}>
+        <Col key={item.id} style={{display: "flex", justifyContent: "center", marginBottom: "30px"}}>
           <StoreItem key={item.id} name={item.name} id={item.id}></StoreItem>
         </Col>
         )}
