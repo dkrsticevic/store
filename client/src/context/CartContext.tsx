@@ -14,6 +14,7 @@ type CartContext = {
     addToCart: (id: number) => void
     getQuantity: (id: number) => number
     getTotalItems: () => number
+    removeFromCart: (id: number) => void
 }
 
 const CartContext = createContext({} as CartContext)
@@ -55,9 +56,14 @@ export function CartProvider( {children} : CartProviderProps){
         return items.find(item => item.id === id)?.quantity || 0
     }
 
+    function removeFromCart(id: number){
+        setItems(curr => {
+            return curr.filter(i => i.id != id)
+        })
+    }
 
     return (
-        <CartContext.Provider value={{ getCart, addToCart, getTotalItems, getQuantity}}>
+        <CartContext.Provider value={{ getCart, addToCart, getTotalItems, getQuantity, removeFromCart}}>
             {children}
         </CartContext.Provider>
     )
