@@ -15,10 +15,10 @@ function StoreItem({name, id}: StoreItemProps) {
     <Card key={id} style={{width: "300px", height: "300px"}}>
         <Card.Body>
         <Card.Title>{name}</Card.Title>
-        {count !== 0 &&
-        <div>{count} in Cart</div>}
-        <Button onClick={() => addToCart(id)}>Add To Cart</Button>
-        <Button onClick={() => removeFromCart(id)}>Remove from Cart</Button> 
+
+        <div style={{height: "150px"}}>{count !== 0 && `${count} in Cart`}</div>
+        <Button style={{marginBottom: "10px", width: "100%"}} onClick={() => addToCart(id)}>Add To Cart</Button>
+        <Button disabled={count == 0 && true} style={{marginBottom: "10px", width: "100%"}} onClick={() => removeFromCart(id)}>Remove from Cart</Button> 
         </Card.Body>
     </Card>
   )
