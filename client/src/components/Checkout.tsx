@@ -7,7 +7,7 @@ type CheckoutProps = {
 }
 
 function Checkout({open, setOpen}: CheckoutProps) {
-    const {getCart} = useCart()
+    const { getCart, removeFromCart } = useCart()
     const items = getCart();
 
     const handleCheckout = () => {
@@ -33,9 +33,9 @@ function Checkout({open, setOpen}: CheckoutProps) {
                 <Offcanvas.Title>Checkout</Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
-                {items.map(item => <div>
-                    <span>Item {item.id} </span>
-                    <span>x {item.quantity}</span>
+                {items.map(item => <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "5px"}}>
+                    <span>Item {item.id} x {item.quantity}</span>
+                    <Button style={{borderRadius: "50%", width: "40px", aspectRatio: "1/1"}} onClick={() => removeFromCart(item.id)}>X</Button>
                 </div>)}
                 { items.length > 0 &&
                 <Button onClick={handleCheckout} style={{marginTop: "20px"}}> 
