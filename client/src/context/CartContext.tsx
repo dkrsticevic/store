@@ -7,11 +7,12 @@ type CartProviderProps = {
 type Item = {
     id: number 
     quantity: number 
+    price: number
 }
 
 type CartContext = {
     getCart: () => Item[]
-    addToCart: (id: number) => void
+    addToCart: (id: number, price: number) => void
     getQuantity: (id: number) => number
     getTotalItems: () => number
     removeFromCart: (id: number) => void
@@ -30,14 +31,14 @@ export function CartProvider( {children} : CartProviderProps){
         return items
     }
 
-    function addToCart(id : number){        
+    function addToCart(id : number, price: number){        
         setItems(curr => { 
             if (curr.find(item => item.id === id) == null){
-                return [...curr, {id: id, quantity: 1}]
+                return [...curr, {id: id, quantity: 1, price: price}]
             } else { 
                 return curr.map(item => {
                     if (item.id === id){
-                        return {...item, quantity: item.quantity + 1}
+                        return {...item, quantity: item.quantity + 1, price}
                     } else {
                         return item
                     }

@@ -18,7 +18,7 @@ function StoreItem({name, id, price}: StoreItemProps) {
         <Card.Title>{name}</Card.Title>
         <span>${price} AUD</span>
         <div>{count !== 0 && `${count} in Cart`}</div>
-        <Button style={{width: "88%", position: "absolute", bottom: 62,}} onClick={() => addToCart(id)}>Add To Cart</Button>
+        <Button style={{width: "88%", position: "absolute", bottom: 62,}} onClick={() => addToCart(id, price)}>Add To Cart</Button>
         <Button disabled={count == 0 && true} style={{width: "88%" , position: "absolute", bottom: 12}} onClick={() => removeFromCart(id)}>Remove from Cart</Button> 
         </Card.Body>
     </Card>

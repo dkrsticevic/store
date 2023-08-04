@@ -35,12 +35,19 @@ function Checkout({open, setOpen}: CheckoutProps) {
             <Offcanvas.Body>
                 {items.map(item => <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "5px"}}>
                     <span>Item {item.id} x {item.quantity}</span>
+                    <span>$ {item.price*item.quantity} AUD</span>
                     <Button style={{borderRadius: "50%", width: "40px", aspectRatio: "1/1"}} onClick={() => removeFromCart(item.id)}>X</Button>
                 </div>)}
                 { items.length > 0 &&
+        	    <>
+                <div style={{fontWeight: "bold"}}> 
+                Total Price ${items.reduce((acc, current) => acc + (current.price * current.quantity), 0)} AUD
+                </div> 
+
                 <Button onClick={handleCheckout} style={{marginTop: "20px"}}> 
                     Proceed to Checkout
                 </Button> 
+                </>
                 }
             </Offcanvas.Body>
         </Offcanvas>
