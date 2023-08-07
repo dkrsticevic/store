@@ -11,7 +11,7 @@ function NavigationBar() {
 
     return (
         <>
-        <Navbar bg="dark" data-bs-theme="dark">
+        <Navbar bg="dark" data-bs-theme="dark" sticky="top">
         <Container>
             <Navbar.Brand>Temp Name</Navbar.Brand>
             <Nav className="me-auto">
