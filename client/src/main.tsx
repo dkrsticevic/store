@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import NavigationBar from './components/NavigationBar.tsx';
 import { CartProvider } from './context/CartContext.tsx';
 import Signup from './pages/Signup.tsx';
+import Login from './pages/Login.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -12,6 +13,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <NavigationBar></NavigationBar>
       <Store />
       <Signup></Signup>
+      <Login></Login>
     </CartProvider>
   </React.StrictMode>,
 )
