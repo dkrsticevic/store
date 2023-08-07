@@ -10,7 +10,7 @@ export default function Signup() {
 
     return (
         <Container style={{display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column"}}>
-            <Card style={{width: "500px", marginTop: "200px"}}>
+            <Card style={{width: "100%", maxWidth: "500px", marginTop: "200px"}}>
                 <Card.Body>
                     <Card.Title> Sign Up</Card.Title>
                     <Form> 
