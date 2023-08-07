@@ -1,5 +1,6 @@
 import { useRef } from 'react';
-import { Form, Button, Card } from 'react-bootstrap'
+import { Form, Button, Card, Container } from 'react-bootstrap'
+import { Link } from 'react-router-dom';
 
 export default function Signup() {
     const emailRef = useRef<HTMLInputElement>(null);
@@ -8,8 +9,8 @@ export default function Signup() {
 
 
     return (
-        <div style={{display: "flex", justifyContent: "center"}}>
-            <Card style={{width: "500px"}}>
+        <Container style={{display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column"}}>
+            <Card style={{width: "500px", marginTop: "200px"}}>
                 <Card.Body>
                     <Card.Title> Sign Up</Card.Title>
                     <Form> 
@@ -25,10 +26,11 @@ export default function Signup() {
                             <Form.Label>Password Confirm</Form.Label>
                             <Form.Control type='password' ref={passwordConfirmRef} required/>
                         </Form.Group>
-                        <Button type='submit' style={{marginTop: "20px"}}>Sign Up</Button>
+                        <Button className='w-100' type='submit' style={{marginTop: "20px"}}>Sign Up</Button>
                     </Form>
                 </Card.Body>
             </Card>
-        </div>
+            <div>Already have account? <Link to="/login">Log In</Link></div>
+        </Container>
     )
 }
