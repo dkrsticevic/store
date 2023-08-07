@@ -4,12 +4,14 @@ import Store from './pages/Store.tsx'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavigationBar from './components/NavigationBar.tsx';
 import { CartProvider } from './context/CartContext.tsx';
+import Signup from './pages/Signup.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <CartProvider>
       <NavigationBar></NavigationBar>
       <Store />
+      <Signup></Signup>
     </CartProvider>
   </React.StrictMode>,
 )
