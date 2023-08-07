@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import Checkout from './Checkout';
 import { useCart } from '../context/CartContext';
+import { Link } from 'react-router-dom';
 
 function NavigationBar() {
     const {getTotalItems} = useCart()
@@ -27,6 +28,7 @@ function NavigationBar() {
                     {count !== 0 &&
                     <span style={{position: "absolute", top: "-8px", right: "-10px",  borderRadius: '50%', background: "red", fontSize: "12px", width: "20px", height: "20px"}}>{count}</span>        }
             </Button>
+            <Link style={{marginLeft: "20px"}} to="/login">Log In</Link>
         </Container>
         </Navbar>
         <Checkout open={open} setOpen={setOpen}></Checkout>
