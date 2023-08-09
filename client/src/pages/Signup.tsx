@@ -1,5 +1,5 @@
-import { useRef } from 'react';
-import { Form, Button, Card, Container } from 'react-bootstrap'
+import { useRef, useState } from 'react';
+import { Form, Button, Card, Container, Alert } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import { useUser } from '../context/UserContext'
 
@@ -8,11 +8,24 @@ export default function Signup() {
     const passwordRef = useRef<HTMLInputElement>(null);
     const passwordConfirmRef = useRef<HTMLInputElement>(null);
     const { signup } = useUser()
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false)
 
-    function handleSubmit(e: any) {
+    async function handleSubmit(e: any) {
         e.preventDefault();
 
-        signup(emailRef.current!.value, passwordRef.current!.value)
+        if (passwordConfirmRef.current!.value !== passwordRef.current!.value)
+            return setError("Passwords don't match")
+
+        try {
+           setError('')
+           setLoading(true)
+           await signup(emailRef.current!.value, passwordRef.current!.value)
+        } catch {
+            setError("Failed to create account")
+        }
+        setLoading(false)
+
     }
 
 
@@ -30,7 +43,8 @@ export default function Signup() {
                         <h3>Sign Up</h3>
                         <div style={{width: "40px"}}></div>
                      </Card.Title>
-                    <Form> 
+                     {error != "" && <Alert variant='danger'>{error}</Alert>}
+                    <Form onSubmit={handleSubmit}> 
                         <Form.Group id="email">
                             <Form.Label>Email</Form.Label>
                             <Form.Control type='email' ref={emailRef} required/>
@@ -43,7 +57,7 @@ export default function Signup() {
                             <Form.Label>Password Confirm</Form.Label>
                             <Form.Control type='password' ref={passwordConfirmRef} required/>
                         </Form.Group>
-                        <Button className='w-100' type='submit' style={{marginTop: "20px"}}>Sign Up</Button>
+                        <Button disabled={loading} className='w-100' type='submit' style={{marginTop: "20px"}}>Sign Up</Button>
                     </Form>
                 </Card.Body>
             </Card>

@@ -19,6 +19,7 @@ export function useUser(){
 
 export function UserProvider({children}: UserProviderProps ) {
     const [currentUser, setCurrentUser] = useState<any>()
+    const [loading, setLoading] = useState(false)
 
     function getUser() {
         return currentUser
@@ -31,6 +32,7 @@ export function UserProvider({children}: UserProviderProps ) {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user != null){
+                setLoading
                 setCurrentUser(user)
             }
         })
@@ -40,7 +42,7 @@ export function UserProvider({children}: UserProviderProps ) {
 
     return (
         <UserContext.Provider value={{getUser, signup}}>
-            {children}
+            {!loading && children}
         </UserContext.Provider>
     )
 }
