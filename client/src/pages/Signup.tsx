@@ -1,11 +1,19 @@
 import { useRef } from 'react';
 import { Form, Button, Card, Container } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
+import { useUser } from '../context/UserContext'
 
 export default function Signup() {
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
     const passwordConfirmRef = useRef<HTMLInputElement>(null);
+    const { signup } = useUser()
+
+    function handleSubmit(e: any) {
+        e.preventDefault();
+
+        signup(emailRef.current!.value, passwordRef.current!.value)
+    }
 
 
     return (

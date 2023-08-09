@@ -31,7 +31,7 @@ export default function Signup() {
                             <Form.Label>Password</Form.Label>
                             <Form.Control type='password' ref={passwordRef} required/>
                         </Form.Group>
-                        <Button className='w-100' type='submit' style={{marginTop: "20px"}}>Sign Up</Button>
+                        <Button className='w-100' type='submit' style={{marginTop: "20px"}}>Log In</Button>
                     </Form>
                 </Card.Body>
             </Card>

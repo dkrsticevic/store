@@ -1,10 +1,15 @@
-import React, { ReactNode, createContext, useContext, useState } from 'react'
+import React, { ReactNode, createContext, useContext, useEffect, useState } from 'react'
+import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
+import { auth } from '../firebase'
 
 type UserProviderProps = {
     children: ReactNode
 }
 
-type UserContext =  {}
+type UserContext =  {
+    getUser: () => string
+    signup: (email: string, password: string) => any
+}
 
 const UserContext = createContext({} as UserContext);
 
@@ -13,14 +18,28 @@ export function useUser(){
 }
 
 export function UserProvider({children}: UserProviderProps ) {
-    const [currentUser, setCurrentUser] = useState<string>()
+    const [currentUser, setCurrentUser] = useState<any>()
 
-    const value = {
-        currentUser
+    function getUser() {
+        return currentUser
     }
 
+    function signup(email :string, password: string) {
+        return createUserWithEmailAndPassword(auth, email, password)
+    }
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user != null){
+                setCurrentUser(user)
+            }
+        })
+
+        return unsubscribe
+    }, [])
+
     return (
-        <UserContext.Provider value={value}>
+        <UserContext.Provider value={{getUser, signup}}>
             {children}
         </UserContext.Provider>
     )
