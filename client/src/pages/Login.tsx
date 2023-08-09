@@ -1,15 +1,31 @@
-import { useRef } from 'react';
-import { Form, Button, Card, Container } from 'react-bootstrap'
-import { Link } from 'react-router-dom';
+import { useRef, useState } from 'react';
+import { Form, Button, Card, Container, Alert } from 'react-bootstrap'
+import { Link} from 'react-router-dom';
+import { useUser } from '../context/UserContext'
 
-export default function Signup() {
+export default function Login() {
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
+    const { login } = useUser()
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false)
 
+    async function handleSubmit(e: any) {
+        e.preventDefault();
+
+        try {
+           setError('')
+           setLoading(true)
+           await login(emailRef.current!.value, passwordRef.current!.value)
+        } catch {
+            setError("Failed to log in")
+        }
+        setLoading(false)
+
+    }
 
     return (
         <Container style={{display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column"}}>
-
             <Card style={{width: "100%", maxWidth: "500px", marginTop: "200px"}}>
                 <Card.Body>
                     <Card.Title style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
@@ -22,7 +38,8 @@ export default function Signup() {
                         <h3>Log In</h3>
                         <div style={{width: "40px"}}></div>
                      </Card.Title>
-                    <Form> 
+                     {error != "" && <Alert variant='danger'>{error}</Alert>}
+                    <Form onSubmit={handleSubmit}> 
                         <Form.Group id="email">
                             <Form.Label>Email</Form.Label>
                             <Form.Control type='email' ref={emailRef} required/>
@@ -31,7 +48,7 @@ export default function Signup() {
                             <Form.Label>Password</Form.Label>
                             <Form.Control type='password' ref={passwordRef} required/>
                         </Form.Group>
-                        <Button className='w-100' type='submit' style={{marginTop: "20px"}}>Log In</Button>
+                        <Button disabled={loading} className='w-100' type='submit' style={{marginTop: "20px"}}>Log In</Button>
                     </Form>
                 </Card.Body>
             </Card>
