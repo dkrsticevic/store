@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Container, Nav, Navbar } from 'react-bootstrap';
+import { Button, Container, Dropdown, Nav, Navbar } from 'react-bootstrap';
 import Checkout from './Checkout';
 import { useCart } from '../context/CartContext';
 import { Link } from 'react-router-dom';
@@ -31,9 +31,20 @@ function NavigationBar() {
                     <span style={{position: "absolute", top: "-8px", right: "-10px",  borderRadius: '50%', background: "red", fontSize: "12px", width: "20px", height: "20px"}}>{count}</span>        }
             </Button>
             {user == ""  ?
-            <Link style={{marginLeft: "20px"}} to="/login">Log In</Link>
-            : <><Button onClick={logout}>log out</Button><span style={{ color: "white", marginLeft: "20px" }}>{user}</span></>
+            <Link style={{marginLeft: "10px"}} to="/login"><Button>Log In</Button></Link>
+            : <Dropdown><Dropdown.Toggle style={{marginLeft: "10px", position: "relative", borderRadius: "10px", width: "70px", height: "40px", display: "flex", alignItems: "center", justifyContent: "center"}}> 
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-person" viewBox="0 0 16 16">
+                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
+                </svg>
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                    <Dropdown.Item disabled={true}>{user}</Dropdown.Item>
+                    <Dropdown.Item onClick={logout}>Log out</Dropdown.Item>
+                </Dropdown.Menu>
+            </Dropdown>
             }
+
+
         </Container>
         </Navbar>
         <Checkout open={open} setOpen={setOpen}></Checkout>
