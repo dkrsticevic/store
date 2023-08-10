@@ -3,12 +3,14 @@ import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import Checkout from './Checkout';
 import { useCart } from '../context/CartContext';
 import { Link } from 'react-router-dom';
+import { useUser } from '../context/UserContext';
 
 function NavigationBar() {
     const {getTotalItems} = useCart()
     const [open, setOpen] = useState<boolean>(false)
     const count = getTotalItems()
-
+    const { getUser } = useUser()
+    const user = getUser()
 
     return (
         <>
@@ -19,7 +21,6 @@ function NavigationBar() {
                 <Nav.Link href="#home">Home</Nav.Link>
                 <Nav.Link href="#store">Store</Nav.Link>
             </Nav>
-            
             <Button style={{position: "relative", width: "40px", aspectRatio: "1/1", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center"}}
             onClick={() => setOpen(true)}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-cart2" viewBox="0 0 16 16">
@@ -28,7 +29,10 @@ function NavigationBar() {
                     {count !== 0 &&
                     <span style={{position: "absolute", top: "-8px", right: "-10px",  borderRadius: '50%', background: "red", fontSize: "12px", width: "20px", height: "20px"}}>{count}</span>        }
             </Button>
+            {user == ""  ?
             <Link style={{marginLeft: "20px"}} to="/login">Log In</Link>
+            : <span style={{color: "white", marginLeft: "20px"}}>{user}</span>
+            }
         </Container>
         </Navbar>
         <Checkout open={open} setOpen={setOpen}></Checkout>

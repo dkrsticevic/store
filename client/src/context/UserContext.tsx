@@ -1,6 +1,7 @@
 import React, { ReactNode, createContext, useContext, useEffect, useState } from 'react'
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword, User, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../firebase'
+
 
 type UserProviderProps = {
     children: ReactNode
@@ -19,11 +20,15 @@ export function useUser(){
 }
 
 export function UserProvider({children}: UserProviderProps ) {
-    const [currentUser, setCurrentUser] = useState<any>()
+    const [currentUser, setCurrentUser] = useState<User>()
     const [loading, setLoading] = useState(false)
 
     function getUser() {
-        return currentUser
+        if ( currentUser?.email == null){
+            return ""
+        }
+
+        return currentUser?.email
     }
 
     function signup(email :string, password: string) {
