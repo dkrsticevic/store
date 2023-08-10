@@ -9,8 +9,9 @@ function NavigationBar() {
     const {getTotalItems} = useCart()
     const [open, setOpen] = useState<boolean>(false)
     const count = getTotalItems()
-    const { getUser } = useUser()
-    const user = getUser()
+    const { getUser, logout } = useUser()
+    let user = getUser()
+
 
     return (
         <>
@@ -31,7 +32,7 @@ function NavigationBar() {
             </Button>
             {user == ""  ?
             <Link style={{marginLeft: "20px"}} to="/login">Log In</Link>
-            : <span style={{color: "white", marginLeft: "20px"}}>{user}</span>
+            : <><Button onClick={logout}>log out</Button><span style={{ color: "white", marginLeft: "20px" }}>{user}</span></>
             }
         </Container>
         </Navbar>

@@ -1,5 +1,5 @@
 import React, { ReactNode, createContext, useContext, useEffect, useState } from 'react'
-import { createUserWithEmailAndPassword, User, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword, User, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import { auth } from '../firebase'
 
 
@@ -11,6 +11,7 @@ type UserContext =  {
     getUser: () => string
     signup: (email: string, password: string) => any
     login: (email: string, password: string) => any
+    logout: () => any
 }
 
 const UserContext = createContext({} as UserContext);
@@ -27,8 +28,7 @@ export function UserProvider({children}: UserProviderProps ) {
         if ( currentUser?.email == null){
             return ""
         }
-
-        return currentUser?.email
+        return currentUser.email
     }
 
     function signup(email :string, password: string) {
@@ -37,6 +37,11 @@ export function UserProvider({children}: UserProviderProps ) {
 
     function login(email :string, password: string) {
         return signInWithEmailAndPassword(auth, email, password)
+    }
+
+    function logout(){
+        setCurrentUser(undefined)
+        return signOut(auth)
     }
 
     useEffect(() => {
@@ -51,7 +56,7 @@ export function UserProvider({children}: UserProviderProps ) {
     }, [])
 
     return (
-        <UserContext.Provider value={{getUser, signup, login}}>
+        <UserContext.Provider value={{getUser, signup, login, logout}}>
             {!loading && children}
         </UserContext.Provider>
     )
