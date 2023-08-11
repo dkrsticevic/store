@@ -3,14 +3,12 @@ import { Form, Button, Card, Container, Alert } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom';
 import { useUser } from '../context/UserContext'
 
-export default function Login() {
+export default function ForgotPassword() {
     const emailRef = useRef<HTMLInputElement>(null);
-    const passwordRef = useRef<HTMLInputElement>(null);
-    const { login } = useUser()
+    const { signup } = useUser()
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false)
     const navigate =  useNavigate()
-
 
     async function handleSubmit(e: any) {
         e.preventDefault();
@@ -18,10 +16,10 @@ export default function Login() {
         try {
            setError('')
            setLoading(true)
-           await login(emailRef.current!.value, passwordRef.current!.value)
+          
            navigate("/")
         } catch {
-            setError("Failed to log in")
+            setError("Failed to create account")
         }
         setLoading(false)
 
@@ -38,7 +36,7 @@ export default function Login() {
                             </svg>
                         </Button> 
                         </Link>
-                        <h3>Log In</h3>
+                        <h3>Forgot Password</h3>
                         <div style={{width: "40px"}}></div>
                      </Card.Title>
                      {error != "" && <Alert variant='danger'>{error}</Alert>}
@@ -47,16 +45,11 @@ export default function Login() {
                             <Form.Label>Email</Form.Label>
                             <Form.Control type='email' ref={emailRef} required/>
                         </Form.Group>
-                        <Form.Group id="password">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control type='password' ref={passwordRef} required/>
-                        </Form.Group>
-                        <Button disabled={loading} className='w-100' type='submit' style={{marginTop: "20px"}}>Log In</Button>
+                        <Button disabled={loading} className='w-100' type='submit' style={{marginTop: "20px"}}>Reset Password</Button>
                     </Form>
-                    <div className='w-100 text-center'><Link to="/forgot-password">Forgot Password?</Link></div>
+                    <div className='w-100 text-center'><Link to="/login">Log In</Link></div>
                 </Card.Body>
             </Card>
-            <div>Don't have an account? <Link to="/signup">Sign Up</Link></div>
         </Container>
     )
 }
