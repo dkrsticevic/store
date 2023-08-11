@@ -1,5 +1,5 @@
 import React, { ReactNode, createContext, useContext, useEffect, useState } from 'react'
-import { createUserWithEmailAndPassword, User, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import { createUserWithEmailAndPassword, User, onAuthStateChanged, signInWithEmailAndPassword, signOut, sendPasswordResetEmail } from 'firebase/auth'
 import { auth } from '../firebase'
 
 
@@ -12,6 +12,7 @@ type UserContext =  {
     signup: (email: string, password: string) => any
     login: (email: string, password: string) => any
     logout: () => any
+    resetPassword: (email: string) => any
 }
 
 const UserContext = createContext({} as UserContext);
@@ -44,6 +45,10 @@ export function UserProvider({children}: UserProviderProps ) {
         return signOut(auth)
     }
 
+    function resetPassword(email: string){
+        return sendPasswordResetEmail(auth, email)
+    }
+
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user != null){
@@ -56,7 +61,7 @@ export function UserProvider({children}: UserProviderProps ) {
     }, [])
 
     return (
-        <UserContext.Provider value={{getUser, signup, login, logout}}>
+        <UserContext.Provider value={{getUser, signup, login, logout, resetPassword}}>
             {!loading && children}
         </UserContext.Provider>
     )

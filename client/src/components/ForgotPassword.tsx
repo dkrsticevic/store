@@ -1,25 +1,26 @@
 import { useRef, useState } from 'react';
 import { Form, Button, Card, Container, Alert } from 'react-bootstrap'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useUser } from '../context/UserContext'
 
 export default function ForgotPassword() {
     const emailRef = useRef<HTMLInputElement>(null);
-    const { signup } = useUser()
+    const { resetPassword } = useUser()
     const [error, setError] = useState("");
+    const [success, setSuccess] = useState("")
     const [loading, setLoading] = useState(false)
-    const navigate =  useNavigate()
 
     async function handleSubmit(e: any) {
         e.preventDefault();
 
         try {
-           setError('')
-           setLoading(true)
-          
-           navigate("/")
+            setSuccess('')
+            setError('')
+            setLoading(true)
+            await resetPassword(emailRef.current!.value)
+            setSuccess("Check your email for reset process")
         } catch {
-            setError("Failed to create account")
+            setError("Failed to send email")
         }
         setLoading(false)
 
@@ -40,6 +41,7 @@ export default function ForgotPassword() {
                         <div style={{width: "40px"}}></div>
                      </Card.Title>
                      {error != "" && <Alert variant='danger'>{error}</Alert>}
+                     {success != "" && <Alert>{success}</Alert>}
                     <Form onSubmit={handleSubmit}> 
                         <Form.Group id="email">
                             <Form.Label>Email</Form.Label>
