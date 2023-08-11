@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { Button, Container, Dropdown, Nav, Navbar } from 'react-bootstrap';
 import Checkout from './Checkout';
 import { useCart } from '../context/CartContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
+
 
 function NavigationBar() {
     const {getTotalItems} = useCart()
@@ -11,7 +12,7 @@ function NavigationBar() {
     const count = getTotalItems()
     const { getUser, logout } = useUser()
     let user = getUser()
-
+    const navigate =  useNavigate()
 
     return (
         <>
@@ -39,6 +40,7 @@ function NavigationBar() {
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                     <Dropdown.Item disabled={true}>{user}</Dropdown.Item>
+                    <Dropdown.Item onClick={() => {navigate("/update-profile")}}>Update Profile</Dropdown.Item>
                     <Dropdown.Item onClick={logout}>Log out</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>

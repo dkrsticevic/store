@@ -1,31 +1,33 @@
 import { useRef, useState } from 'react';
 import { Form, Button, Card, Container, Alert } from 'react-bootstrap'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useUser } from '../context/UserContext'
 
 export default function UpdateProfile() {
-    const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
     const passwordConfirmRef = useRef<HTMLInputElement>(null);
-    const { getUser } = useUser()
+    const { getUser, updatePass } = useUser()
     const currentUser = getUser()
     const [error, setError] = useState("");
+    const [success, setSuccess] = useState("")
     const [loading, setLoading] = useState(false)
-    const navigate =  useNavigate()
 
     async function handleSubmit(e: any) {
         e.preventDefault();
-
+        setSuccess('')
         if (passwordConfirmRef.current!.value !== passwordRef.current!.value)
             return setError("Passwords don't match")
 
         try {
+           
            setError('')
            setLoading(true)
-           //await signup(emailRef.current!.value, passwordRef.current!.value)
-           navigate("/")
-        } catch {
-            setError("Failed to create account")
+           await updatePass(passwordRef.current!.value)
+           setSuccess('Password Updated!')
+
+        } catch (e){
+            console.log(e)
+            setError("Failed to update password")
         }
         setLoading(false)
 
@@ -46,10 +48,11 @@ export default function UpdateProfile() {
                         <div style={{width: "40px"}}></div>
                      </Card.Title>
                      {error != "" && <Alert variant='danger'>{error}</Alert>}
+                     {success != "" && <Alert variant='success'>{success}</Alert>}
                     <Form onSubmit={handleSubmit}> 
                         <Form.Group id="email">
                             <Form.Label>Email</Form.Label>
-                            <Form.Control type='email' ref={emailRef} required defaultValue={currentUser} disabled={true}/>
+                            <Form.Control type='email' required defaultValue={currentUser} disabled={true}/>
                         </Form.Group>
                         <Form.Group id="password">
                             <Form.Label>Password</Form.Label>
