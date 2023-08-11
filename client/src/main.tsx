@@ -8,6 +8,7 @@ import Signup from './pages/Signup.tsx';
 import Login from './pages/Login.tsx';
 import { UserProvider } from './context/UserContext.tsx';
 import ForgotPassword from './components/ForgotPassword.tsx';
+import UpdateProfile from './components/UpdateProfile.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -18,6 +19,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <Routes><Route path='/Signup' Component={Signup}></Route></Routes>
       <Routes><Route path='/Login' Component={Login}></Route></Routes>
       <Routes><Route path='/forgot-password' Component={ForgotPassword}></Route></Routes>
+      <Routes><Route path='/update-profile' Component={UpdateProfile}></Route></Routes>
     </CartProvider>
     </UserProvider>
     </BrowserRouter>
