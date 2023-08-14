@@ -25,8 +25,7 @@ export default function UpdateProfile() {
            await updatePass(passwordRef.current!.value)
            setSuccess('Password Updated!')
 
-        } catch (e){
-            console.log(e)
+        } catch{
             setError("Failed to update password")
         }
         setLoading(false)
