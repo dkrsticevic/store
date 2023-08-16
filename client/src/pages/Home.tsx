@@ -1,9 +1,12 @@
-import React from 'react'
-interface Props {}
+import { Container } from "react-bootstrap"
 
 function Home() {
     return (
-        <></>
+        <Container>
+
+
+            
+        </Container>
     )
 }
 

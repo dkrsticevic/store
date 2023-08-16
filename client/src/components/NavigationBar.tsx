@@ -20,8 +20,8 @@ function NavigationBar() {
         <Container>
             <Navbar.Brand>Temp Name</Navbar.Brand>
             <Nav className="me-auto">
-                <Nav.Link href="/">Home</Nav.Link>
-                <Nav.Link href="/store">Store</Nav.Link>
+                <Nav.Link onClick={() => {navigate("/")}}>Home</Nav.Link>
+                <Nav.Link onClick={() => {navigate("/store")}}>Store</Nav.Link>
             </Nav>
             <Button style={{position: "relative", width: "40px", aspectRatio: "1/1", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center"}}
             onClick={() => setOpen(true)}>
