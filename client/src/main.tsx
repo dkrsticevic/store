@@ -10,14 +10,18 @@ import { UserProvider } from './context/UserContext.tsx';
 import ForgotPassword from './components/ForgotPassword.tsx';
 import UpdateProfile from './components/UpdateProfile.tsx';
 import PrivateRoute from './components/PrivateRoute.tsx';
+import NavigationBar from './components/NavigationBar.tsx';
+import Home from './pages/Home.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter basename='/'>
     <UserProvider>
     <CartProvider>
+      <NavigationBar></NavigationBar>
       <Routes>
-        <Route path='/' Component={Store}></Route>
+        <Route path='/' Component={Home}></Route>
+        <Route path='/Store' Component={Store}></Route>
         <Route path='/Signup' Component={Signup}></Route>
         <Route path='/Login' Component={Login}></Route>
         <Route path='/forgot-password' Component={ForgotPassword}></Route>
