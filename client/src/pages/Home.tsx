@@ -1,8 +1,10 @@
-import { Button, Container } from "react-bootstrap"
+import { Button, Carousel, Container } from "react-bootstrap"
 import { Link } from "react-router-dom"
+import items from "../data/items.json"
 
 function Home() {
     return (
+        <>
         <div style={{background: "lightgray", height: "600px", width: "100%"}}>
         <Container style={{display: "flex", justifyContent: "space-around"}}>
             <div style={{paddingTop: "200px", display: "flex", flexDirection: "column", width: "50%"}}>
@@ -15,6 +17,20 @@ function Home() {
             <img src="./images/cat.png" style={{height: "500px", paddingTop: "50px"}}></img>
         </Container>
         </div>
+        <Container>
+        <h2 style={{textAlign: "center"}}>Featured Products</h2>
+        <Carousel variant="dark" style={{maxWidth: "800px", margin: "0 auto"}}>
+            {items.map(item => 
+                <Carousel.Item>
+                    <img className="w-100" src={item.image} style={{height: "200px", objectFit: "contain", marginBottom: "80px"}} alt=""/>
+                    <Carousel.Caption>
+                    <h5>{item.name}</h5>
+                    </Carousel.Caption>
+                </Carousel.Item>
+            )}
+        </Carousel>
+        </Container>
+        </>
     )
 }
 
