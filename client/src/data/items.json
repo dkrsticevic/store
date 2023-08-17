@@ -2,21 +2,25 @@
     {
         "id": 1,
         "name": "item1",
-        "price": 100
+        "price": 100,
+        "image":"./images/cat.png"
     },
     {
         "id": 2,
         "name": "item2",
-        "price": 120
+        "price": 120,
+        "image":"./images/cat.png"
     },
     {
         "id": 3,
         "name": "item3",
-        "price": 130
+        "price": 130,
+        "image":"./images/cat.png"
     },
     {
         "id": 4,
         "name": "item4",
-        "price": 140
+        "price": 140,
+        "image":"./images/cat.png"
     }
 ]
