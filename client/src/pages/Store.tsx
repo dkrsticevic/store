@@ -1,7 +1,9 @@
 import { Col, Container, Row } from "react-bootstrap";
+import items from "../data/items.json"
 import StoreItem from "../components/StoreItem";
 
-const items : {id: number, name: string, price: number}[] = [{id: 1, name: "item1", price: 100}, {id: 2, name: "item2", price: 120}, {id: 3, name: "item3", price: 130}]
+
+//const items : {id: number, name: string, price: number}[] = [{id: 1, name: "item1", price: 100}, {id: 2, name: "item2", price: 120}, {id: 3, name: "item3", price: 130}]
 
 function Store() {
   return (
