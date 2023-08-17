@@ -18,7 +18,7 @@ function Home() {
         </Container>
         </div>
         <Container>
-        <h2 style={{textAlign: "center"}}>Featured Products</h2>
+        <h2 style={{textAlign: "center", paddingTop: "30px"}}>Featured Products</h2>
         <Carousel variant="dark" style={{maxWidth: "800px", margin: "0 auto"}}>
             {items.map(item => 
                 <Carousel.Item>
@@ -29,6 +29,11 @@ function Home() {
                 </Carousel.Item>
             )}
         </Carousel>
+        
+        <div style={{paddingTop: "30px", maxWidth: "400px"}}> 
+                <h2>Contact Us</h2>
+                <p>We value your feedback and inquiries. Reach out at our business email test@test.com to connect with our members. </p>
+        </div>
         </Container>
         </>
     )
